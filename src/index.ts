@@ -10,7 +10,7 @@ import { startUsageMonitor } from './usage.ts';
 for (const k of Object.keys(process.env)) if (k === 'CLAUDECODE' || k.startsWith('CLAUDE_CODE_')) delete process.env[k];
 
 if (!config.telegramToken) {
-  console.error('ClaudeBot needs a Telegram bot token.\n  1. In Telegram, message @BotFather, send /newbot and copy the token.\n  2. cp .env.example .env and set TELEGRAM_BOT_TOKEN=<token>\n  3. npm start');
+  console.error('BizBot needs a Telegram bot token.\n  1. In Telegram, message @BotFather, send /newbot and copy the token.\n  2. cp .env.example .env and set TELEGRAM_BOT_TOKEN=<token>\n  3. npm start');
   process.exit(1);
 }
 
@@ -29,15 +29,15 @@ const telegram = startTelegram();
 scheduler.loadAll();
 const meter = bots.find(config.usageBot) ?? bots.all().find((b) => b.template && getTemplate(b.template)?.usageMonitor);
 if (meter) startUsageMonitor(meter.slug);
-log(`[claudebot] up · timezone ${config.timezone} · ${bots.all().length} bot(s)`);
-void telegram.notifyOwner('🟢 ClaudeBot is online.').catch(() => {});
+log(`[bizbot] up · timezone ${config.timezone} · ${bots.all().length} bot(s)`);
+void telegram.notifyOwner('🟢 BizBot is online.').catch(() => {});
 
 function shutdown(sig: string) {
-  log(`[claudebot] ${sig} — shutting down`);
+  log(`[bizbot] ${sig} — shutting down`);
   stopBrowserServer();
   void telegram.stop();
   setTimeout(() => process.exit(0), 500);
 }
 process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('unhandledRejection', (e) => log('[claudebot] unhandled rejection', e));
+process.on('unhandledRejection', (e) => log('[bizbot] unhandled rejection', e));

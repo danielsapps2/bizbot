@@ -1,7 +1,7 @@
 # Team policy
 
 How much your bots may do on their own. Edit freely; every bot that runs routines reads this.
-ClaudeBot's built-in approvals (/mode) still apply on top of it.
+BizBot's built-in approvals (/mode) still apply on top of it.
 
 ## Green: go ahead, report afterwards
 

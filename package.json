@@ -1,14 +1,14 @@
 {
-  "name": "claudebot",
+  "name": "bizbot",
   "version": "1.0.0",
-  "description": "Always-on Claude teammates on your Mac, controlled from Telegram. A self-hosted Grok Bot alternative powered by your Claude subscription.",
+  "description": "Run your business with an AI team: always-on Claude agents with real roles, working on your Mac and reporting to you on Telegram. Powered by your own Claude subscription.",
   "scripts": {
     "start": "node src/index.ts",
     "typecheck": "tsc",
     "service:install": "scripts/install-service.sh",
     "service:uninstall": "scripts/uninstall-service.sh",
-    "service:restart": "launchctl kickstart -k gui/$(id -u)/com.claudebot.agent",
-    "logs": "tail -f logs/claudebot.log"
+    "service:restart": "launchctl kickstart -k gui/$(id -u)/com.bizbot.agent",
+    "logs": "tail -f logs/bizbot.log"
   },
   "license": "MIT",
   "type": "module",
@@ -30,6 +30,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danielsapps2/claudebot.git"
+    "url": "https://github.com/danielsapps2/bizbot.git"
   }
 }

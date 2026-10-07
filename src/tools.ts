@@ -15,7 +15,7 @@ const ok = (text: string) => ({ content: [{ type: 'text' as const, text }] });
 const fail = (text: string) => ({ content: [{ type: 'text' as const, text }], isError: true });
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n) + '…' : s);
 
-/** The in-process MCP server ("bot") that gives a teammate its ClaudeBot-specific abilities. */
+/** The in-process MCP server ("bot") that gives a teammate its BizBot-specific abilities. */
 export function createBotServer(bot: BotRecord, chain: string[], to: string = bot.slug) {
   const who = `${bot.emoji} ${bot.name}`;
   const ws = workspaceOf(bot.slug);

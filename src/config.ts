@@ -5,7 +5,7 @@ import path from 'node:path';
 export const ROOT = path.resolve(import.meta.dirname, '..');
 if (fs.existsSync(path.join(ROOT, '.env'))) process.loadEnvFile(path.join(ROOT, '.env'));
 
-export const DATA = process.env.CLAUDEBOT_DATA || path.join(ROOT, 'data');
+export const DATA = process.env.BIZBOT_DATA || process.env.CLAUDEBOT_DATA || path.join(ROOT, 'data');
 export const HOME = os.homedir();
 
 function num(v: string | undefined): number | undefined {
@@ -21,7 +21,7 @@ export const config = {
   browserPort: num(process.env.BROWSER_PORT) ?? 8931,
   browserHeadless: process.env.BROWSER_HEADLESS === '1',
   browserCdpPort: num(process.env.BROWSER_CDP_PORT) ?? 9223,
-  opVault: process.env.OP_VAULT || 'ClaudeBot',
+  opVault: process.env.OP_VAULT || 'BizBot',
   usageBot: process.env.USAGE_BOT || 'meter',
   usageCheckMin: num(process.env.USAGE_CHECK_MIN) ?? 10,
   falKey: process.env.FAL_KEY || '',

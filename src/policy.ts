@@ -13,7 +13,7 @@ export const SAFE_TOOLS = [
 ];
 
 // Never without a human, in any mode.
-const HARD_BASH = /\bsudo\b|\brm\s+-[a-z]*r[a-z]*f?\s+(\/|~|\$HOME)(\s|$)|\bmkfs\b|\bdd\s+if=|git\s+push\s+.*--force|\bshutdown\b|\breboot\b|security\s+(delete|dump-keychain|find-(generic|internet)-password\s+.*-[wg]\b)|claudebot-1password|OP_SERVICE_ACCOUNT_TOKEN|(^|[;&|(\s])op\s+(item|read|inject|run|document|vault|signin|account|whoami|user|group|service-account|connect)\b/;
+const HARD_BASH = /\bsudo\b|\brm\s+-[a-z]*r[a-z]*f?\s+(\/|~|\$HOME)(\s|$)|\bmkfs\b|\bdd\s+if=|git\s+push\s+.*--force|\bshutdown\b|\breboot\b|security\s+(delete|dump-keychain|find-(generic|internet)-password\s+.*-[wg]\b)|bizbot-1password|OP_SERVICE_ACCOUNT_TOKEN|(^|[;&|(\s])op\s+(item|read|inject|run|document|vault|signin|account|whoami|user|group|service-account|connect)\b/;
 const HARD_MCP = /(purchase|buy|pay|transfer|checkout|delete_project|delete_branch|delete_postgres|delete_storage|revoke|rotate)/i;
 
 // Outward-facing or destructive: asked in 'ask' mode.

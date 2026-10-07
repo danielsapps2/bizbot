@@ -8,7 +8,7 @@ import { config, log } from './config.ts';
 // site that's open, and type it straight into the page over CDP. Tools only ever return
 // item titles, hostnames and which fields were filled.
 
-export const KEYCHAIN_SERVICE = 'claudebot-1password';
+export const KEYCHAIN_SERVICE = 'bizbot-1password';
 
 type Login = { id: string; title: string; hosts: string[] };
 type Field = 'username' | 'password' | 'otp';
@@ -100,7 +100,7 @@ async function visible(frames: Frame[], css: string): Promise<Locator[]> {
  * to the wrong place.
  */
 export async function fillLogin(query: string, fields: Field[], submit: boolean): Promise<string> {
-  if (!snapshotsMasked) throw new Error('fill_login is disabled: password fields could not be masked in browser snapshots (see the ClaudeBot log). Ask the user to sign in instead.');
+  if (!snapshotsMasked) throw new Error('fill_login is disabled: password fields could not be masked in browser snapshots (see the BizBot log). Ask the user to sign in instead.');
   const login = await findLogin(query);
   const sites = new Set(login.hosts.map(site));
   if (!sites.size) throw new Error(`Login "${login.title}" has no website URL in 1Password, so it can't be matched to a page. Add the site URL to the item.`);

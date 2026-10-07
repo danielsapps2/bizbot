@@ -1,9 +1,9 @@
 #!/bin/bash
-# Installs ClaudeBot as a macOS LaunchAgent: starts at login, restarts on crash,
+# Installs BizBot as a macOS LaunchAgent: starts at login, restarts on crash,
 # and keeps the Mac awake (on power) while it runs.
 set -euo pipefail
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
-LABEL=com.claudebot.agent
+LABEL=com.bizbot.agent
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 NODE="$(command -v node)"
 mkdir -p "$DIR/logs" "$HOME/Library/LaunchAgents"
@@ -27,11 +27,11 @@ cat > "$PLIST" <<PLIST
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
   <key>ThrottleInterval</key><integer>10</integer>
-  <key>StandardOutPath</key><string>$DIR/logs/claudebot.log</string>
-  <key>StandardErrorPath</key><string>$DIR/logs/claudebot.log</string>
+  <key>StandardOutPath</key><string>$DIR/logs/bizbot.log</string>
+  <key>StandardErrorPath</key><string>$DIR/logs/bizbot.log</string>
 </dict>
 </plist>
 PLIST
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
-echo "ClaudeBot service installed. Logs: $DIR/logs/claudebot.log"
+echo "BizBot service installed. Logs: $DIR/logs/bizbot.log"

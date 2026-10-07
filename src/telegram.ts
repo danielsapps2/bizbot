@@ -21,7 +21,7 @@ const AUDIO_EXT = /\.(mp3|m4a|wav|ogg)$/i;
 const TEAM_TOPIC = '👥 Team';
 const CODE_TOPIC = '🧑‍💻 Claude Code';
 
-const HELP = `**ClaudeBot** — your always-on AI teammates, running on your Mac.
+const HELP = `**BizBot** — your AI company: always-on teammates with real jobs, working on your Mac.
 
 **Talking to bots**
 In your team group every bot has its own thread — just chat there. In 👥 Team, the active bot answers, or address anyone with \`Name: message\`. The 🧑‍💻 Claude Code thread talks straight to Claude Code. Photos and files land in the bot's inbox.
@@ -52,7 +52,7 @@ In your team group every bot has its own thread — just chat there. In 👥 Tea
 /setup — (in a group with Topics) create the team threads`;
 
 const SETUP_GUIDE = `**Set up your team group** (one time, ~1 minute):
-1. In Telegram: New Group → add this bot → name it e.g. "ClaudeBot HQ".
+1. In Telegram: New Group → add this bot → name it e.g. "BizBot HQ".
 2. Group settings → **Topics** → turn on.
 3. Group settings → Administrators → add this bot → enable **Manage Topics**.
 4. Make sure "Remain anonymous" is **off** for you.
@@ -642,7 +642,7 @@ export function startTelegram() {
   tg.command('status', async (ctx) => {
     const busy = busyKeys();
     const st = state.get();
-    await say(ctx, `**ClaudeBot** is up ${Math.round(process.uptime() / 60)} min\nActive: ${label(activeBot())}${st.code ? ` · Claude Code project \`${st.code.dir}\`` : ''}\nWorking now: ${busy.length ? busy.join(', ') : 'nothing'}\nBots: ${bots.all().length} · schedules: ${schedules.all().filter((s) => s.enabled).length} active\nPending approvals: ${approvals.size}\nTeam group: ${group() ? 'connected' : 'not set up (/setup)'}`);
+    await say(ctx, `**BizBot** is up ${Math.round(process.uptime() / 60)} min\nActive: ${label(activeBot())}${st.code ? ` · Claude Code project \`${st.code.dir}\`` : ''}\nWorking now: ${busy.length ? busy.join(', ') : 'nothing'}\nBots: ${bots.all().length} · schedules: ${schedules.all().filter((s) => s.enabled).length} active\nPending approvals: ${approvals.size}\nTeam group: ${group() ? 'connected' : 'not set up (/setup)'}`);
   });
 
   tg.command('pair', (ctx) => ctx.reply('Already paired ✅'));
@@ -734,7 +734,7 @@ export function startTelegram() {
   const commands = [
     { command: 'bots', description: 'Your team — jump to threads' },
     { command: 'agents', description: 'Ready-made teammates to enable' },
-    { command: 'new', description: 'Hire a teammate: Name | job | description' },
+    { command: 'new', description: 'Hire for a role: Name | job | description' },
     { command: 'stop', description: 'Stop what is running' },
     { command: 'reset', description: 'Fresh conversation (keeps memory)' },
     { command: 'schedules', description: 'Scheduled tasks' },
@@ -748,7 +748,7 @@ export function startTelegram() {
     { command: 'browser', description: 'Open a page in the shared browser' },
     { command: 'status', description: "What's running" },
     { command: 'setup', description: 'Create team threads (in a group)' },
-    { command: 'help', description: 'How to use ClaudeBot' },
+    { command: 'help', description: 'How to use BizBot' },
   ];
   void tg.api.setMyCommands(commands).catch(() => {});
   void tg.api.setMyCommands(commands, { scope: { type: 'all_group_chats' } }).catch(() => {});
