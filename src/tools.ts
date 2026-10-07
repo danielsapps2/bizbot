@@ -9,6 +9,7 @@ import * as scheduler from './scheduler.ts';
 import { bots, schedules, slugify, workspaceOf, type BotRecord } from './store.ts';
 import { ui } from './ui.ts';
 import { describe, fetchUsage } from './usage.ts';
+import { usageReport } from './usagelog.ts';
 import { fillLogin, listLogins } from './vault.ts';
 
 const ok = (text: string) => ({ content: [{ type: 'text' as const, text }] });
@@ -165,6 +166,10 @@ export function createBotServer(bot: BotRecord, chain: string[], to: string = bo
       lines.push('Schedules run today (UTC date):', ...(ran.length ? ran.map((s) => `- ${s.name} (${s.bot}) at ${s.lastRun!.slice(11, 16)} UTC: ${s.lastStatus ?? '?'}`) : ['- none']));
       return ok(lines.join('\n'));
     }),
+
+    tool('usage_report', 'Token usage per bot and model from the run log, with an estimate at API list prices, so you can see who uses the most of the Claude plan and what model changes save. Costs no tokens.', {
+      days: z.number().int().min(1).max(60).optional().describe('Look-back window, default 7'),
+    }, async (a) => ok(usageReport(a.days ?? 7))),
 
     tool('claude_usage', 'Current Claude plan usage: the 5-hour session, weekly and per-model weekly limits, % used, reset times and whether the current pace runs out before reset. Costs no tokens.', {}, async () => {
       try {

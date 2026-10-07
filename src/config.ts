@@ -22,6 +22,9 @@ export const config = {
   browserHeadless: process.env.BROWSER_HEADLESS === '1',
   browserCdpPort: num(process.env.BROWSER_CDP_PORT) ?? 9223,
   opVault: process.env.OP_VAULT || 'BizBot',
+  // Claude Code sessions (claude_code tool, /code) do the coding and hard work.
+  codeModel: process.env.CODE_MODEL || 'claude-opus-5-5',
+  codeEffort: (process.env.CODE_EFFORT || 'high') as 'low' | 'medium' | 'high' | 'xhigh' | 'max',
   usageBot: process.env.USAGE_BOT || 'meter',
   usageCheckMin: num(process.env.USAGE_CHECK_MIN) ?? 10,
   falKey: process.env.FAL_KEY || '',

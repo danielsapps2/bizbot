@@ -85,6 +85,8 @@ Enable them from `/agents` in Telegram. Then hire for whatever your business nee
 - In 👥 Team, the active bot answers, or use `Scout: find …` to address one. `/group A,B task` runs a collaboration there.
 - In 🧑‍💻 Claude Code, pick a project with `/code ~/path`. `/sessions` resumes one from your terminal.
 - Inside a bot's thread, `/reset`, `/mode`, `/model`, `/memory`, `/schedules` and `/stop` apply to that bot.
+- `/model` sets a bot's model and reasoning effort, for example `/model haiku low`, `/model Scout sonnet medium` or `/model opus high`. `/model haiku` means the current Haiku. A good split: a strong model at high effort for coding and hard tasks, Sonnet for judgment-heavy agentic work, Haiku for routine chat.
+- Claude Code sessions (the `claude_code` tool and `/code`) run on `CODE_MODEL` at `CODE_EFFORT`, Opus at high by default, whatever model the bot itself uses.
 - Send photos or files. They land in the bot's `inbox/` folder.
 - To sign in to a site once for all bots, send `/browser https://mail.google.com` and log in on the Chrome window on the Mac.
 - `/help` lists every command.
@@ -149,12 +151,13 @@ BizBot runs the official, unmodified Claude Code through the Agent SDK, signed i
 agents/           ready-made teammates (templates) you can /enable
 src/index.ts      boot: default bot, browser server, Telegram, schedules, usage monitor
 src/agent.ts      runs a bot (Agent SDK query) and Claude Code sessions
-src/tools.ts      bot tools: memory, approvals, files, handoffs, skills, schedules, claude_code, usage, logins, images
+src/tools.ts      bot tools: memory, approvals, files, handoffs, skills, schedules, claude_code, usage, usage_report, team_status, logins, images
 src/templates.ts  installs agents/ templates
 src/policy.ts     what needs approval
 src/telegram.ts   the remote control (DMs and the Topics group)
 src/scheduler.ts  cron jobs
 src/usage.ts      Claude plan usage monitor
+src/usagelog.ts   per-run token log and the usage_report tool (who spends the plan, and what a model change saves)
 src/vault.ts      1Password sign-ins
 data/             your bots, memories, workspaces, schedules, browser profile (git-ignored)
 ```

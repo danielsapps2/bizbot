@@ -4,6 +4,7 @@ import path from 'node:path';
 import { HOME, config, log } from './config.ts';
 import { browserMcp } from './browser.ts';
 import { logHistory, readMemory } from './memory.ts';
+import { recordRun } from './usagelog.ts';
 import { makeCanUseTool, prettyToolName } from './policy.ts';
 import { bots, workspaceOf, type BotRecord } from './store.ts';
 import { createBotServer } from './tools.ts';
@@ -166,6 +167,7 @@ async function execute(o: RunOptions, retried = false): Promise<RunResult> {
     additionalDirectories: [HOME],
     resume: sessionId,
     model: bot.model,
+    effort: bot.effort,
     systemPrompt: { type: 'preset', preset: 'claude_code', append: systemAppend(bot) },
     settingSources: ['user', 'project'],
     skills: 'all',
@@ -193,6 +195,7 @@ async function execute(o: RunOptions, retried = false): Promise<RunResult> {
       } else if (m.type === 'result') {
         if (m.subtype === 'success') text = m.result;
         else error = `${m.subtype}${'errors' in m && m.errors?.length ? `: ${m.errors.join('; ')}` : ''}`;
+        recordRun({ who: bot.slug, origin: o.origin, title: o.title ?? '', effort: bot.effort, secs: Math.round((Date.now() - started) / 1000), ok: m.subtype === 'success' }, m.modelUsage);
       }
     }
   } catch (e: any) {
@@ -239,6 +242,8 @@ export function runClaudeCode(o: { dir: string; task: string; sessionId?: string
         prompt: o.task,
         options: {
           cwd: dir,
+          model: config.codeModel,
+          effort: config.codeEffort,
           resume: o.sessionId,
           continue: !o.sessionId && o.continueLast,
           systemPrompt: {
@@ -264,6 +269,7 @@ export function runClaudeCode(o: { dir: string; task: string; sessionId?: string
         } else if (m.type === 'result') {
           if (m.subtype === 'success') text = m.result;
           else error = m.subtype;
+          recordRun({ who: `code:${path.basename(dir)}`, origin: 'code', title: o.task.slice(0, 80), effort: config.codeEffort, secs: Math.round(m.duration_ms / 1000), ok: m.subtype === 'success' }, m.modelUsage);
         }
       }
     } catch (e: any) {

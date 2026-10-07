@@ -3,6 +3,8 @@ import path from 'node:path';
 import { config, paths } from './config.ts';
 
 export type ApprovalMode = 'auto' | 'ask' | 'strict';
+export const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'] as const;
+export type Effort = (typeof EFFORTS)[number];
 
 export interface BotRecord {
   name: string;
@@ -11,6 +13,8 @@ export interface BotRecord {
   job: string;
   description: string;
   model?: string;
+  /** Reasoning effort for this bot's runs (unset = the model's default). */
+  effort?: Effort;
   sessionId?: string;
   approvalMode: ApprovalMode;
   createdAt: string;

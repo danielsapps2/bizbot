@@ -7,7 +7,7 @@ import { busyKeys, isBusy, runBot, runClaudeCode, stop } from './agent.ts';
 import { chunkMarkdown, mdToHtml } from './md.ts';
 import { forget, readMemory, remember } from './memory.ts';
 import * as scheduler from './scheduler.ts';
-import { bots, schedules, state, workspaceOf, type ApprovalMode, type BotRecord } from './store.ts';
+import { bots, EFFORTS, schedules, state, workspaceOf, type ApprovalMode, type BotRecord, type Effort } from './store.ts';
 import { enableTemplate, getTemplate, listTemplates, parseParams, type EnableResult } from './templates.ts';
 import { setUI, type Decision, type Dest, type Question, type UI } from './ui.ts';
 import { startUsageMonitor } from './usage.ts';
@@ -538,13 +538,16 @@ export function startTelegram() {
 
   tg.command('model', async (ctx) => {
     const parts = ctx.match.trim().split(/\s+/).filter(Boolean);
-    const named = parts.length === 2 ? bots.find(parts[0]) : undefined;
+    const named = parts.length >= 2 ? bots.find(parts[0]) : undefined;
     const b = named ?? botFor(ctx);
-    const m = named ? parts[1] : parts[0];
+    const [m, e] = named ? parts.slice(1) : parts;
     if (!b) return;
-    if (!m) return void say(ctx, `${label(b)} uses model: **${b.model ?? 'default (your Claude Code setting)'}**\nUsage: \`/model sonnet\`, \`/model opus\`, \`/model haiku\`, \`/model default\` (or \`/model Name sonnet\`)`);
-    bots.update(b.slug, { model: m === 'default' ? undefined : m });
-    await say(ctx, `${label(b)} model → **${m}**`);
+    if (!m) return void say(ctx, `${label(b)} uses model: **${b.model ?? 'default (your Claude Code setting)'}**, effort: **${b.effort ?? 'model default'}**\nUsage: \`/model haiku\`, \`/model sonnet medium\`, \`/model opus high\`, \`/model default\` (or \`/model Name haiku low\`). Effort: ${EFFORTS.join(', ')}.`);
+    if (e && !(EFFORTS as readonly string[]).includes(e)) return void say(ctx, `Effort must be one of: ${EFFORTS.join(', ')}`);
+    // The CLI's "haiku" alias still points at Haiku 4.5; use the current Haiku.
+    const model = m === 'default' ? undefined : m === 'haiku' ? 'claude-haiku-5-5' : m;
+    bots.update(b.slug, { model, ...(e ? { effort: e as Effort } : m === 'default' ? { effort: undefined } : {}) });
+    await say(ctx, `${label(b)} model → **${model ?? 'default'}**${e ? `, effort → **${e}**` : ''}`);
   });
 
   tg.command('memory', async (ctx) => {
