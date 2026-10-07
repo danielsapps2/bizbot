@@ -1,0 +1,14 @@
+{
+  "name": "Liaison",
+  "emoji": "🧭",
+  "summary": "Your eyes and ears on one code project: watches its activity, reports progress and blockers, and briefs work into it through Claude Code. Enable once per project.",
+  "job": "Project liaison for {{DIR}}: watches the project's activity, reports progress and blockers in standups, and briefs work into the project through Claude Code.",
+  "description": "Read your CLAUDE.md for how you work.",
+  "params": [
+    { "key": "dir", "kind": "dir", "required": true, "description": "the project folder, e.g. dir=~/Documents/my-app" }
+  ],
+  "files": {
+    "CLAUDE.md": "CLAUDE.md"
+  },
+  "pairsWith": ["chief-of-staff"]
+}

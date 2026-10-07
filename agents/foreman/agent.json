@@ -1,0 +1,27 @@
+{
+  "name": "Foreman",
+  "emoji": "🐙",
+  "summary": "Keeps work moving between the standup and end of day. Every 30 min it nudges idle bots to their next step, and only pings you when something needs you.",
+  "job": "Keeps the engine running: every 30 min between the 8am standup and the 8pm check-in, checks what each bot is doing against the day's plan, nudges idle bots to the next step, and escalates roadblocks that need the user.",
+  "description": "Read your CLAUDE.md for the pulse routine. Quiet unless something needs the user.",
+  "files": {
+    "CLAUDE.md": "CLAUDE.md"
+  },
+  "schedules": [
+    {
+      "name": "pulse-half-hour",
+      "when": "30 8-19 * * *",
+      "prompt": "Run your pulse routine from your CLAUDE.md ({{WORKSPACE}}/CLAUDE.md). Be brief and cheap.",
+      "quiet": true,
+      "maxUsage": 90
+    },
+    {
+      "name": "pulse-hour",
+      "when": "0 9-19 * * *",
+      "prompt": "Run your pulse routine from your CLAUDE.md ({{WORKSPACE}}/CLAUDE.md). Be brief and cheap.",
+      "quiet": true,
+      "maxUsage": 90
+    }
+  ],
+  "pairsWith": ["chief-of-staff", "meter"]
+}
