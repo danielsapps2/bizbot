@@ -14,6 +14,8 @@ Running `/enable` again is safe: files you've edited are kept and routines aren'
 | `meter` | nothing | none; it watches usage in code every 10 min (no tokens) |
 | `foreman` | works best with `chief-of-staff` (it reads the morning plan) | a pulse every 30 min, 8:30–19:30. Quiet, and skipped above 90% usage |
 | `liaison` | `dir=` a project folder; `name=` to run several | none; it reports in the standup |
+| `researcher` | nothing. Pairs well with `chief-of-staff` | none; other bots call it for sourced research memos |
+| `devils-advocate` | works best with `researcher` | none; other bots call it to argue the opposite of a big decision |
 
 Shared team docs (`GOALS.md`, `POLICY.md`, `standups/`) live in `data/ops/`. They're created the first time you enable `chief-of-staff`.
 
