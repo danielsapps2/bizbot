@@ -4,6 +4,7 @@ import * as scheduler from './scheduler.ts';
 import { bots, ensureBotDirs, state } from './store.ts';
 import { getTemplate } from './templates.ts';
 import { startTelegram } from './telegram.ts';
+import { startNightlyJob } from './jobs.ts';
 import { startUsageMonitor } from './usage.ts';
 
 // The SDK spawns Claude Code; make sure a parent Claude Code session's env doesn't leak in.
@@ -29,6 +30,7 @@ const telegram = startTelegram();
 scheduler.loadAll();
 const meter = bots.find(config.usageBot) ?? bots.all().find((b) => b.template && getTemplate(b.template)?.usageMonitor);
 if (meter) startUsageMonitor(meter.slug);
+startNightlyJob((msg) => void telegram.notifyOwner(msg).catch(() => {}));
 log(`[bizbot] up · timezone ${config.timezone} · ${bots.all().length} bot(s)`);
 void telegram.notifyOwner('🟢 BizBot is online.').catch(() => {});
 

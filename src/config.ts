@@ -27,6 +27,8 @@ export const config = {
   codeEffort: (process.env.CODE_EFFORT || 'high') as 'low' | 'medium' | 'high' | 'xhigh' | 'max',
   usageBot: process.env.USAGE_BOT || 'meter',
   usageCheckMin: num(process.env.USAGE_CHECK_MIN) ?? 10,
+  nightlyCommand: process.env.NIGHTLY_COMMAND || '',
+  nightlyAt: process.env.NIGHTLY_AT || '02:15',
   falKey: process.env.FAL_KEY || '',
   falImageModel: process.env.FAL_IMAGE_MODEL || 'fal-ai/flux/dev',
   approvalTimeoutMs: (num(process.env.APPROVAL_TIMEOUT_MIN) ?? 60) * 60_000,
