@@ -17,7 +17,7 @@ Running `/enable` again is safe: files you've edited are kept and routines aren'
 | `researcher` | nothing. Pairs well with `chief-of-staff` | none; other bots call it for sourced research memos |
 | `devils-advocate` | works best with `researcher` | none; other bots call it to argue the opposite of a big decision |
 
-Shared team docs (`GOALS.md`, `POLICY.md`, `standups/`) live in `data/ops/`. They're created the first time you enable `chief-of-staff`.
+Shared team docs (`GOALS.md`, `POLICY.md`, `ETHOS.md` (grounded belief: how the team talks and celebrates wins), `WINS.md`, `standups/`) live in `data/ops/`. They're created the first time you enable `chief-of-staff`.
 
 ## Make your own
 

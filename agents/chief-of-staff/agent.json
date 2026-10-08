@@ -6,7 +6,9 @@
   "description": "The user's goals live in {{OPS_DIR}}/GOALS.md and the rules for how much the team may do on its own live in {{OPS_DIR}}/POLICY.md. Read both before planning and keep GOALS.md up to date. Daily notes go in {{OPS_DIR}}/standups/YYYY-MM-DD.md. If GOALS.md still contains the template's <fill in> placeholders, offer to interview the user (a few AskUserQuestion questions) and fill it in for them.",
   "opsFiles": {
     "GOALS.md": "GOALS.md",
-    "POLICY.md": "POLICY.md"
+    "POLICY.md": "POLICY.md",
+    "ETHOS.md": "ETHOS.md",
+    "WINS.md": "WINS.md"
   },
   "schedules": [
     {
@@ -25,5 +27,8 @@
       "prompt": "Monday weekly review. You are the chief of staff.\n\n1. Read {{OPS_DIR}}/GOALS.md and {{OPS_DIR}}/POLICY.md, and last week's files in {{OPS_DIR}}/standups/.\n2. Pull this week's real numbers for each goal from every source you can reach (files, connectors, and dashboards in the shared browser where the user is signed in). Don't guess numbers. Mark anything you couldn't read as unknown.\n3. Update GOALS.md: progress on each goal and the \"Last updated\" line. For any priority whose review date has passed, recommend continue, change or stop, with one line of evidence.\n4. Rewrite \"Your tasks this week\" (under 2 hours total, with exact steps) and \"Team work this week\".\n5. Reply with one short summary: progress on each goal, the decisions to make, the user's tasks, and the single biggest risk. Keep it scannable, no tables.\nFollow POLICY.md: anything in its \"ask first\" tier needs request_approval."
     }
   ],
-  "pairsWith": ["meter", "foreman"]
+  "pairsWith": [
+    "meter",
+    "foreman"
+  ]
 }
